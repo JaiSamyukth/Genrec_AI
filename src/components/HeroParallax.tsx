@@ -32,10 +32,10 @@ export function HeroParallax() {
                     src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2134&auto=format&fit=crop"
                     alt="Founder-Led Engineering Studio"
                     fill
-                    className="object-cover opacity-40"
+                    className="object-cover opacity-30"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
             </motion.div>
 
             {/* Content */}
@@ -44,24 +44,31 @@ export function HeroParallax() {
                 className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center pb-16"
             >
                 <motion.div
-                    className="max-w-5xl space-y-6 md:space-y-8"
+                    className="max-w-6xl mx-auto space-y-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl leading-tight tracking-tight">
+                    {/* Main Headline */}
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tight mx-auto max-w-5xl drop-shadow-2xl">
                         We design and build production-grade software without theatrics.
                     </h1>
 
-                    <p className="text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl mb-4">
+                    {/* Subheadline */}
+                    <p className="-mt-2 text-xl md:text-2xl lg:text-3xl text-gray-100 font-medium leading-relaxed mx-auto max-w-3xl drop-shadow-lg">
                         Performance is not an add-on. It's the baseline.
                     </p>
 
-                    <p className="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mb-10">
-                        Founder-led engineering for systems that must work under real constraints: scale, unreliable networks, and real users under pressure.
+                    {/* Supporting Text */}
+                    <p className="text-base md:text-lg lg:text-xl text-gray-300/90 leading-relaxed mx-auto max-w-3xl drop-shadow-md">
+                        Engineering ownership from scoping through deployment — for systems that must work under real constraints.
                     </p>
 
-                    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+                    {/* CTA Buttons */}
+                    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6 pt-4">
                         <Button
                             size="lg"
-                            className="h-12 px-8 text-sm font-semibold bg-white hover:bg-gray-100 text-black rounded-md transition-all"
+                            className="h-14 px-10 text-base font-semibold bg-white hover:bg-gray-100 text-black rounded-md transition-all shadow-lg hover:shadow-xl"
                             onClick={scrollToWork}
                         >
                             View Work
@@ -69,7 +76,7 @@ export function HeroParallax() {
                         <Button
                             asChild
                             size="lg"
-                            className="h-12 px-8 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-all"
+                            className="h-14 px-10 text-base font-semibold bg-accent-metal hover:bg-accent-metal-dark text-white rounded-md transition-all shadow-lg hover:shadow-xl"
                         >
                             <Link href="/contact">
                                 Start Project

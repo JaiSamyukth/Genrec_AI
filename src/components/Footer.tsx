@@ -13,9 +13,9 @@ export function Footer() {
 
                     {/* Brand Column */}
                     <div className="space-y-4">
-                        <div className="text-xl font-bold text-white">
-                            Genrec <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B8860B] to-[#DAA520]">AI</span>
-                        </div>
+                        <span className="text-2xl font-bold font-heading tracking-tight uppercase">
+                            GENREC <span className="text-[#B8860B]">AI</span>
+                        </span>
                         <p className="text-sm text-gray-400 leading-relaxed">
                             High-reliability systems. Thoughtful engineering. No noise.
                         </p>

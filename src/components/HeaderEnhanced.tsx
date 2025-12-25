@@ -17,7 +17,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-import { getPageTheme } from "@/lib/page-themes"
+import { getPageConfig, getHeaderStyles } from "@/lib/page-themes"
 
 export default function HeaderEnhanced() {
     const [isScrolled, setIsScrolled] = React.useState(false)
@@ -25,7 +25,10 @@ export default function HeaderEnhanced() {
     const [isVisible, setIsVisible] = React.useState(true)
     const [lastScrollY, setLastScrollY] = React.useState(0)
     const pathname = usePathname()
-    const theme = getPageTheme(pathname)
+
+    // Get page configuration and header styles
+    const pageConfig = getPageConfig(pathname)
+    const headerStyles = getHeaderStyles(pageConfig.headerVariant, isScrolled)
 
     const [mounted, setMounted] = React.useState(false)
 
@@ -52,15 +55,16 @@ export default function HeaderEnhanced() {
         <header
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 transform",
-                isScrolled ? `${theme.header.bg} backdrop-blur-md border-b ${theme.header.border}` : "bg-transparent",
+                headerStyles.bg,
+                isScrolled && `border-b ${headerStyles.border}`,
                 isVisible ? "translate-y-0" : "-translate-y-full"
             )}
         >
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     <Link href="/" className="flex items-center space-x-2">
-                        <span className={cn("text-xl font-bold font-heading tracking-tight", theme.header.logo)}>
-                            Genrec <span className={cn("text-transparent bg-clip-text bg-gradient-to-r", theme.header.logoAccent)}>AI</span>
+                        <span className={cn("text-xl font-bold font-heading tracking-tight uppercase", headerStyles.logo)}>
+                            GENREC <span className={cn(headerStyles.logoAccent)}>AI</span>
                         </span>
                     </Link>
 
@@ -69,7 +73,7 @@ export default function HeaderEnhanced() {
                         <NavigationMenu>
                             <NavigationMenuList>
                                 <NavigationMenuItem>
-                                    <NavigationMenuTrigger className={cn("bg-transparent", theme.header.text)}>
+                                    <NavigationMenuTrigger className={cn("bg-transparent", headerStyles.text)}>
                                         Products
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
@@ -94,33 +98,33 @@ export default function HeaderEnhanced() {
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Link href="/divisions" legacyBehavior passHref>
-                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", theme.header.text)}>Divisions</NavigationMenuLink>
+                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", headerStyles.text)}>Divisions</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Link href="/case-studies" legacyBehavior passHref>
-                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", theme.header.text)}>Case Studies</NavigationMenuLink>
+                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", headerStyles.text)}>Case Studies</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Link href="/about" legacyBehavior passHref>
-                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", theme.header.text)}>About</NavigationMenuLink>
+                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", headerStyles.text)}>About</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Link href="/blog" legacyBehavior passHref>
-                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", theme.header.text)}>Blog</NavigationMenuLink>
+                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", headerStyles.text)}>Blog</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                                 <NavigationMenuItem>
                                     <Link href="/contact" legacyBehavior passHref>
-                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", theme.header.text)}>Contact</NavigationMenuLink>
+                                        <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "bg-transparent", headerStyles.text)}>Contact</NavigationMenuLink>
                                     </Link>
                                 </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
 
-                        <Button asChild size="sm" className={cn("ml-4 font-semibold", theme.header.button)}>
+                        <Button asChild size="sm" className={cn("ml-4 font-semibold", headerStyles.button)}>
                             <Link href="/contact">Get Started</Link>
                         </Button>
                     </div>
@@ -131,7 +135,7 @@ export default function HeaderEnhanced() {
                             variant="ghost"
                             size="icon"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className={theme.header.text}
+                            className={headerStyles.text}
                         >
                             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </Button>

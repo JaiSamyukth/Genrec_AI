@@ -1,62 +1,128 @@
-// Theme configuration for product pages
-export const pageThemes = {
-    '/products/lumina-iq': {
-        name: 'lumina',
-        header: {
-            bg: 'bg-[#EFEDE6]/80',
-            border: 'border-[#D6D3CD]',
-            text: 'text-[#292524]',
-            textSecondary: 'text-[#78716C]',
-            logo: 'text-[#292524]',
-            logoAccent: 'from-[#EA580C] to-[#EA580C]',
-            button: 'bg-[#292524] hover:bg-black text-[#EFEDE6]',
-            menuHover: 'hover:text-[#292524]',
-        },
-        footer: {
-            bg: 'bg-[#FDFCFB]',
-            border: 'border-[#D6D3CD]',
-            text: 'text-[#292524]',
-            textSecondary: 'text-[#78716C]',
-            accent: 'text-[#EA580C] hover:text-[#292524]',
-            logo: 'text-[#292524]',
-            logoAccent: 'from-[#EA580C] to-[#EA580C]',
-        }
+// Page configuration and header variant system
+export type HeaderVariant = 'dark' | 'light'
+export type PageType = 'marketing' | 'informational'
+
+interface PageConfig {
+    headerVariant: HeaderVariant
+    pageType: PageType
+}
+
+// Page-specific configurations
+const pageConfigs: Record<string, PageConfig> = {
+    '/': {
+        headerVariant: 'dark',
+        pageType: 'marketing'
     },
     '/products/tabble': {
-        name: 'tabble',
-        header: {
-            bg: 'bg-black/90',
-            border: 'border-zinc-800',
-            text: 'text-white',
-            textSecondary: 'text-zinc-400',
-            logo: 'text-white',
-            logoAccent: 'from-[#C9A66B] to-[#D4B47E]',
-            button: 'bg-[#C9A66B] hover:bg-[#B89558] text-black',
-            menuHover: 'hover:text-[#C9A66B]',
-        },
-        footer: {
-            bg: 'bg-zinc-950',
-            border: 'border-zinc-800',
-            text: 'text-white',
-            textSecondary: 'text-zinc-400',
-            accent: 'text-[#C9A66B] hover:text-[#D4B47E]',
-            logo: 'text-white',
-            logoAccent: 'from-[#C9A66B] to-[#D4B47E]',
-        }
+        headerVariant: 'dark',
+        pageType: 'marketing'
     },
-    // Default theme for all other pages
+    '/products/lumina-iq': {
+        headerVariant: 'light',
+        pageType: 'marketing'
+    },
+    '/products/construction-website': {
+        headerVariant: 'light',
+        pageType: 'marketing'
+    },
+    '/products/restaurant-website': {
+        headerVariant: 'light',
+        pageType: 'marketing'
+    },
+    '/products/educational-website': {
+        headerVariant: 'light',
+        pageType: 'marketing'
+    },
+    '/about': {
+        headerVariant: 'light',
+        pageType: 'informational'
+    },
+    '/blog': {
+        headerVariant: 'light',
+        pageType: 'informational'
+    },
+    '/case-studies': {
+        headerVariant: 'light',
+        pageType: 'informational'
+    },
+    '/divisions': {
+        headerVariant: 'light',
+        pageType: 'informational'
+    },
+    '/contact': {
+        headerVariant: 'light',
+        pageType: 'informational'
+    },
+}
+
+// Default config for unlisted pages
+const defaultConfig: PageConfig = {
+    headerVariant: 'light',
+    pageType: 'informational'
+}
+
+// Header styles by variant
+interface HeaderStyles {
+    bg: string
+    bgScrolled: string
+    text: string
+    logo: string
+    logoAccent: string
+    button: string
+    border: string
+}
+
+const headerVariants: Record<HeaderVariant, HeaderStyles> = {
+    dark: {
+        bg: 'bg-transparent',
+        bgScrolled: 'bg-black/95 backdrop-blur-md',
+        text: 'text-white',
+        logo: 'text-white',
+        logoAccent: 'text-[#C9A66B]', // Standard gold
+        button: 'bg-white hover:bg-gray-100 text-black',
+        border: 'border-gray-800',
+    },
+    light: {
+        bg: 'bg-white/95 backdrop-blur-md',
+        bgScrolled: 'bg-white backdrop-blur-md',
+        text: 'text-gray-900',
+        logo: 'text-gray-900',
+        logoAccent: 'text-[#B8860B] font-semibold', // Darker gold with weight boost
+        button: 'bg-accent-metal hover:bg-accent-metal-dark text-white',
+        border: 'border-gray-200',
+    }
+}
+
+export function getPageConfig(pathname: string): PageConfig {
+    // Check for exact match
+    if (pageConfigs[pathname]) {
+        return pageConfigs[pathname]
+    }
+
+    // Check for blog post pages
+    if (pathname.startsWith('/blog/')) {
+        return pageConfigs['/blog'] || defaultConfig
+    }
+
+    // Check for product pages
+    if (pathname.startsWith('/products/')) {
+        return defaultConfig
+    }
+
+    return defaultConfig
+}
+
+export function getHeaderStyles(variant: HeaderVariant, isScrolled: boolean): HeaderStyles {
+    const styles = headerVariants[variant]
+    return {
+        ...styles,
+        bg: isScrolled ? styles.bgScrolled : styles.bg
+    }
+}
+
+// For backward compatibility with footer
+export const pageThemes = {
     default: {
-        name: 'default',
-        header: {
-            bg: 'bg-black/80',
-            border: 'border-gray-800',
-            text: 'text-white',
-            textSecondary: 'text-gray-300',
-            logo: 'text-white',
-            logoAccent: 'from-accent-metal to-accent-metal-light',
-            button: 'bg-white hover:bg-gray-100 text-black',
-            menuHover: 'hover:text-accent-metal',
-        },
         footer: {
             bg: 'bg-white',
             border: 'border-gray-200',
@@ -64,11 +130,11 @@ export const pageThemes = {
             textSecondary: 'text-gray-600',
             accent: 'text-accent-metal hover:text-accent-metal-dark',
             logo: 'text-gray-900',
-            logoAccent: 'from-accent-metal to-accent-metal-light',
+            logoAccent: 'text-accent-metal',
         }
     }
-};
+}
 
-export function getPageTheme(pathname: string) {
-    return pageThemes[pathname as keyof typeof pageThemes] || pageThemes.default;
+export function getPageTheme() {
+    return pageThemes.default
 }

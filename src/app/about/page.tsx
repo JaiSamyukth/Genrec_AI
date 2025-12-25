@@ -6,14 +6,19 @@ export default function AboutPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero */}
-            <section className="bg-gray-50 py-24 md:py-32">
+            <section className="bg-gray-50 pt-20 pb-12 md:pt-24 md:pb-16">
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="font-heading text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-                        Engineering AI That <br /><span className="text-accent-metal">Actually Works</span>
+                        Engineering AI That <br /><span className="text-[#9D7C4A] font-normal tracking-tight">Actually Works</span>
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                         Genrec AI was founded on a simple observation: most modern software looks impressive but breaks under real conditions.
                     </p>
+                </div>
+
+                {/* Subtle transition divider */}
+                <div className="container mx-auto px-4 mt-12">
+                    <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
                 </div>
             </section>
 
